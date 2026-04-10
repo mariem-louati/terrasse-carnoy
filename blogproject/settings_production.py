@@ -11,6 +11,7 @@ DEBUG = config('DEBUG', default=False, cast=bool)
 
 ALLOWED_HOSTS = ['*']
 
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -18,11 +19,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'shop',
     'cloudinary_storage',
     'cloudinary',
     'shop',
 ]
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
