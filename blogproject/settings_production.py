@@ -6,11 +6,8 @@ from decouple import config
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = config('SECRET_KEY', default='django-insecure-change-this-in-production')
-
 DEBUG = config('DEBUG', default=False, cast=bool)
-
 ALLOWED_HOSTS = ['*']
-
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -18,16 +15,15 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'cloudinary_storage',  # ← AVANT staticfiles
+    'cloudinary_storage',
     'django.contrib.staticfiles',
     'cloudinary',
     'shop',
 ]
 
-
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',  # ✅ WhiteNoise pour les fichiers statiques
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -55,12 +51,9 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'blogproject.wsgi.application'
 
-# ✅ Base de données PostgreSQL sur Railway
 DATABASE_URL = config('DATABASE_URL', default=None)
 if DATABASE_URL:
-    DATABASES = {
-        'default': dj_database_url.parse(DATABASE_URL)
-    }
+    DATABASES = {'default': dj_database_url.parse(DATABASE_URL)}
 else:
     DATABASES = {
         'default': {
@@ -81,22 +74,16 @@ TIME_ZONE = 'Africa/Tunis'
 USE_I18N = True
 USE_TZ = True
 
-# ✅ Fichiers statiques avec WhiteNoise
+# ✅ Fichiers statiques
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATICFILES_DIRS = [BASE_DIR / 'shop' / 'static']
-STATICFILES_STORAGE = 'whitenoise.storage.StaticFilesStorage'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
 
-# ✅ Fichiers media (images produits)
+# ✅ Fichiers media via Cloudinary
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
-
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-# ✅ CLOUDINARY
-import cloudinary
-import cloudinary.uploader
-import cloudinary.api
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 CLOUDINARY_STORAGE = {
     'CLOUD_NAME': config('CLOUDINARY_CLOUD_NAME'),
@@ -104,4 +91,4 @@ CLOUDINARY_STORAGE = {
     'API_SECRET': config('CLOUDINARY_API_SECRET'),
 }
 
-DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
