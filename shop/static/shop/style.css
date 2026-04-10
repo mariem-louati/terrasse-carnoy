@@ -10,11 +10,11 @@ body {
 
 /* ===== NAVBAR ===== */
 .navbar {
-    background: #22448b;
+    background: #e9bf9cc0;
     position: sticky;
     top: 0;
     z-index: 100;
-    box-shadow: 0 2px 12px rgba(52, 73, 194, 0.35);
+    box-shadow: 0 2px 12px rgba(255, 218, 183, 0.562);
 }
 
 .navbar-inner {
@@ -70,7 +70,7 @@ body {
     position: absolute;
     top: -6px;
     right: -6px;
-    background: #24316d;
+    background: #e9bf9cc0;
     color: #1a1a1a;
     font-size: 11px;
     font-weight: 900;
@@ -141,7 +141,7 @@ body {
 
 .video-tag {
     display: inline-block;
-    background: #24316d;
+    background: #e9bf9cc0;
     color: #1a1a1a;
     font-size: 13px;
     font-weight: 900;
@@ -170,7 +170,7 @@ body {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    background: #24316d;
+    background: #e9bf9cc0;
     color: #1a1a1a;
     font-size: 15px;
     font-weight: 900;
@@ -178,12 +178,12 @@ body {
     border-radius: 50px;
     text-decoration: none;
     transition: transform 0.15s, background 0.15s;
-    box-shadow: 0 4px 20px rgba(68, 118, 255, 0.5);
+    box-shadow: 0 4px 20px rgba(255, 218, 183, 0.5);
 }
 
 .video-cta:hover {
     transform: translateY(-2px);
-    background: #24316d;
+    background: #e9bf9cc0;
 }
 
 .video-bar {
@@ -192,13 +192,13 @@ body {
     left: 0;
     right: 0;
     height: 4px;
-    background: #24316d;
+    background: #e9bf9cc0;
     z-index: 3;
 }
 
 /* ===== HERO (fallback) ===== */
 .hero {
-    background: linear-gradient(135deg, #24316d 0%, #4457ff 100%);
+    background: linear-gradient(135deg, #e9bf9cc0 0%, #fdc585 100%);
     padding: 40px 20px;
     position: relative;
     overflow: hidden;
@@ -256,16 +256,16 @@ body {
 }
 
 .category-chip:hover {
-    border-color: #24316d;
+    border-color: #e9bf9cc0;
     background: #FFF9EC;
     transform: translateY(-1px);
 }
 
 .category-chip.active {
-    background: #24316d;
-    border-color: #24316d;
+    background: #e9bf9cc0;
+    border-color: #e9bf9cc0;
     color: #1a1a1a;
-    box-shadow: 0 4px 14px rgba(36, 49, 109, 0.4);
+    box-shadow: 0 4px 14px rgba(255, 218, 183, 0.562);
 }
 
 .chip-icon {
@@ -315,7 +315,7 @@ body {
     align-items: center;
     justify-content: center;
     font-size: 64px;
-    background: linear-gradient(135deg, #FFF9EC 0%, #FFD97D20 100%);
+    background: linear-gradient(135deg, #FFF9EC 0%, #ffc27d3a 100%);
 }
 
 .product-info {
@@ -361,7 +361,7 @@ body {
 .add-btn {
     width: 38px;
     height: 38px;
-    background: #24316d;
+    background: #e9bf9cc0;
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -370,12 +370,12 @@ body {
     color: #1a1a1a;
     font-weight: 900;
     transition: transform 0.15s, background 0.15s;
-    box-shadow: 0 3px 10px rgba(36, 49, 109, 0.45);
+    box-shadow: 0 3px 10px rgba(255, 218, 183, 0.562);
 }
 
 .add-btn:hover {
     transform: scale(1.12);
-    background: #22448b;
+    background: #e9bf9cc0;
 }
 
 /* ===== EMPTY STATES ===== */
@@ -519,8 +519,8 @@ body {
 }
 
 .qty-btn.plus {
-    background: #24316d;
-    box-shadow: 0 2px 8px rgba(36, 49, 109, 0.4);
+    background: #e9bf9cc0;
+    box-shadow: 0 2px 8px rgba(255, 218, 183, 0.562);
 }
 
 .qty-btn.minus {
@@ -598,7 +598,7 @@ body {
 
 .checkout-btn {
     width: 100%;
-    background: #24316d;
+    background: #e9bf9cc0;
     color: #1a1a1a;
     border: none;
     border-radius: 14px;
@@ -613,14 +613,14 @@ body {
     justify-content: center;
     gap: 8px;
     transition: transform 0.15s, box-shadow 0.15s, background 0.15s;
-    box-shadow: 0 4px 18px rgba(36, 49, 109, 0.45);
+    box-shadow: 0 4px 18px rgba(255, 218, 183, 0.562);
     letter-spacing: -0.2px;
 }
 
 .checkout-btn:hover {
-    background: #22448b;
+    background: #e9bf9cc0;
     transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(36, 49, 109, 0.5);
+    box-shadow: 0 8px 24px rgba(255, 218, 183, 0.562);
 }
 
 /* EMPTY CART */
@@ -673,7 +673,7 @@ body {
 .category-card-big:hover {
     transform: translateY(-3px);
     box-shadow: 0 8px 24px rgba(0,0,0,0.12);
-    border-color: #24316d;
+    border-color: #e9bf9cc0;
 }
 
 .category-card-icon {
@@ -696,7 +696,7 @@ body {
 }
 
 .category-card-big:hover .category-card-arrow {
-    color: #24316d;
+    color: #e9bf9cc0;
     transform: translateX(3px);
 }
 
@@ -718,7 +718,7 @@ body {
 .promo-tag { background: #e65100; color: #fff; }
 
 /* ===== PROMO CARD ===== */
-.promo-card { border: 2px solid #24316d; }
+.promo-card { border: 2px solid #e9bf9cc0; }
 .promo-add-btn { background: #FF6B35 !important; box-shadow: 0 3px 10px rgba(255,107,53,0.4) !important; }
 .promo-add-btn:hover { background: #e55a25 !important; }
 
