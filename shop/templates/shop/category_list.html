@@ -1,0 +1,177 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La Terrasse Carnoy</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'shop/style.css' %}">
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+    <div class="navbar-inner">
+        <a href="/" class="brand">
+            <span class="brand-icon">☕</span>
+            <span class="brand-name">La Terrasse Carnoy</span>
+        </a>
+        <a href="{% url 'cart' %}" class="cart-btn">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+            Panier
+            {% with cart=request.session.cart %}
+            {% if cart %}
+                <span class="cart-badge">{{ cart|length }}</span>
+            {% endif %}
+            {% endwith %}
+        </a>
+    </div>
+</nav>
+
+<!-- HERO VIDEO BANNER -->
+<div class="hero-video">
+    <video class="video-bg" autoplay muted loop playsinline>
+        <source src="{% static 'shop/cafe.mp4' %}" type="video/mp4">
+    </video>
+    <div class="video-overlay"></div>
+    <div class="video-content">
+        <span class="video-tag">☕ La Terrasse Carnoy</span>
+        <h1 class="video-title">Plus qu'un salon de thé</h1>
+        <p class="video-subtitle">Une communauté, une expérience unique</p>
+        <a href="#categories" class="video-cta">
+            Voir le menu
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+        </a>
+    </div>
+    <div class="video-bar"></div>
+</div>
+
+<!-- SECTION NOUVEAUTÉS -->
+{% if new_products %}
+<div class="section-container">
+    <div class="section-header">
+        <h2 class="section-title">🆕 Nouveautés</h2>
+        <span class="section-badge new-badge">Nouveau</span>
+    </div>
+    <div class="products-grid">
+        {% for product in new_products %}
+        <div class="product-card">
+            <div class="product-image-wrap">
+                <span class="badge-tag new-tag">🆕 Nouveau</span>
+                {% if product.image %}
+                    <img src="{{ product.image.url }}" alt="{{ product.name }}" class="product-image">
+                {% else %}
+                    <div class="product-image-placeholder">
+                        {% if "café" in product.name|lower %}☕
+                        {% elif "thé" in product.name|lower %}🍵
+                        {% elif "jus" in product.name|lower %}🧃
+                        {% elif "smoothie" in product.name|lower %}🥤
+                        {% elif "milkshake" in product.name|lower %}🥛
+                        {% elif "crêpe" in product.name|lower or "crepe" in product.name|lower %}🥞
+                        {% elif "sandwich" in product.name|lower %}🥪
+                        {% elif "salade" in product.name|lower %}🥗
+                        {% else %}🍽️{% endif %}
+                    </div>
+                {% endif %}
+            </div>
+            <div class="product-info">
+                <h3 class="product-name">{{ product.name }}</h3>
+                <p class="product-desc">{{ product.description }}</p>
+                <div class="product-footer">
+                    <span class="product-price">{{ product.price }} DT</span>
+                    <a href="{% url 'add_to_cart' product.id %}" class="add-btn">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endif %}
+
+<!-- SECTION PROMOTIONS -->
+{% if promo_products %}
+<div class="section-container promo-section">
+    <div class="section-header">
+        <h2 class="section-title">🔥 Promotions</h2>
+        <span class="section-badge promo-badge">Offres du moment</span>
+    </div>
+    <div class="products-grid">
+        {% for product in promo_products %}
+        <div class="product-card promo-card">
+            <div class="product-image-wrap">
+                <span class="badge-tag promo-tag">🔥 Promo</span>
+                {% if product.image %}
+                    <img src="{{ product.image.url }}" alt="{{ product.name }}" class="product-image">
+                {% else %}
+                    <div class="product-image-placeholder">
+                        {% if "café" in product.name|lower %}☕
+                        {% elif "thé" in product.name|lower %}🍵
+                        {% elif "jus" in product.name|lower %}🧃
+                        {% else %}🍽️{% endif %}
+                    </div>
+                {% endif %}
+            </div>
+            <div class="product-info">
+                <h3 class="product-name">{{ product.name }}</h3>
+                <p class="product-desc">{{ product.description }}</p>
+                <div class="product-footer">
+                    <div class="price-group">
+                        {% if product.promo_price %}
+                            <span class="product-price promo-price">{{ product.promo_price }} DT</span>
+                            <span class="original-price">{{ product.price }} DT</span>
+                        {% else %}
+                            <span class="product-price promo-price">{{ product.price }} DT</span>
+                        {% endif %}
+                    </div>
+                    <a href="{% url 'add_to_cart' product.id %}" class="add-btn promo-add-btn">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endif %}
+
+<!-- CATEGORIES -->
+<div class="section-container" id="categories">
+    <h2 class="section-title">Nos catégories</h2>
+    <div class="categories-grid-big">
+        {% for category in categories %}
+        <a href="{% url 'products_by_category' category.id %}" class="category-card-big">
+            <div class="category-card-icon">
+                {% if "café" in category.name|lower or "cafe" in category.name|lower or "chaude" in category.name|lower %}☕
+                {% elif "thé" in category.name|lower %}🍵
+                {% elif "jus" in category.name|lower %}🧃
+                {% elif "smoothie" in category.name|lower or "mojito" in category.name|lower %}🥤
+                {% elif "milkshake" in category.name|lower %}🥛
+                {% elif "crêpe" in category.name|lower or "crepe" in category.name|lower %}🥞
+                {% elif "sandwich" in category.name|lower %}🥪
+                {% elif "salade" in category.name|lower %}🥗
+                {% elif "omelette" in category.name|lower %}🍳
+                {% elif "plat" in category.name|lower or "resto" in category.name|lower %}🍽️
+                {% elif "libanais" in category.name|lower %}🧆
+                {% elif "chicha" in category.name|lower %}💨
+                {% elif "froide" in category.name|lower %}🧊
+                {% else %}🍴{% endif %}
+            </div>
+            <span class="category-card-name">{{ category.name }}</span>
+            <span class="category-card-arrow">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+            </span>
+        </a>
+        {% empty %}
+        <div class="empty-state">
+            <span class="empty-emoji">🍽️</span>
+            <p>Aucune catégorie disponible</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+</body>
+</html>
