@@ -23,17 +23,15 @@ class Product(models.Model):
     promo_price = models.FloatField(null=True, blank=True, verbose_name="Prix promo")
 
     def get_image_url(self):
-        if self.image:
-            # Force l'URL Cloudinary
-            return f"https://res.cloudinary.com/dpcuiczqn/image/upload/{self.image}"
-        return None
-    def __str__(self):
-        return self.name
-
-    def get_display_price(self):
-        if self.is_promo and self.promo_price:
-            return self.promo_price
-        return self.price
+        if not self.image:
+            return None
+    image_str = str(self.image)
+        if image_str.startswith('http'):
+            return image_str
+    # Ajoute .jpg si pas d'extension
+        if '.' not in image_str.split('/')[-1]:
+            image_str = image_str + '.jpg'
+    return f"https://res.cloudinary.com/dpcuiczqn/image/upload/{image_str}"
 
 
 class Order(models.Model):
