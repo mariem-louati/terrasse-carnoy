@@ -12,4 +12,5 @@ urlpatterns = [
     path('increase/<int:product_id>/', views.increase_quantity, name='increase_quantity'),
     path('decrease/<int:product_id>/', views.decrease_quantity, name='decrease_quantity'),
     path('create-admin/', views.create_admin, name='create_admin'),
+    path('debug/', views.debug_images, name='debug_images'),
 ]
