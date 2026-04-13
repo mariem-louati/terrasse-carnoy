@@ -99,3 +99,5 @@ def debug_images(request):
     for p in products:
         output += f"<p><b>{p.name}</b> → url: {p.image.url if p.image else 'PAS IMAGE'}</p>"
     return HttpResponse(output)
+import cloudinary_storage
+output += f"<p>cloudinary_storage version: {cloudinary_storage.__version__}</p>"
