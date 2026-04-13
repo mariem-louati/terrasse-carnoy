@@ -33,10 +33,9 @@ class Product(models.Model):
         image_str = str(self.image)
         if image_str.startswith('http'):
             return image_str
-    # ID Cloudinary pur (sans extension, sans '/')
-        if '.' not in image_str and '/' not in image_str:
-            return f"https://res.cloudinary.com/dpcuiczqn/image/upload/{image_str}"
-    # Chemin products/fichier.jpg
+    # Ajoute .jpg si pas d'extension
+        if '.' not in image_str.split('/')[-1]:
+            image_str = image_str + '.jpg'
         return f"https://res.cloudinary.com/dpcuiczqn/image/upload/{image_str}"
 
 class Order(models.Model):
