@@ -1,4 +1,6 @@
 from django.db import models
+import cloudinary.uploader
+import cloudinary
 
 
 class Category(models.Model):
@@ -20,6 +22,11 @@ class Product(models.Model):
     is_promo = models.BooleanField(default=False, verbose_name="En promotion")
     promo_price = models.FloatField(null=True, blank=True, verbose_name="Prix promo")
 
+    def get_image_url(self):
+        if self.image:
+            # Force l'URL Cloudinary
+            return f"https://res.cloudinary.com/dpcuiczqn/image/upload/{self.image}"
+        return None
     def __str__(self):
         return self.name
 
