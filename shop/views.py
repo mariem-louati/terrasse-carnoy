@@ -108,7 +108,6 @@ def migrate_images(request):
     import os
     from django.conf import settings
 
-    # ✅ Configure Cloudinary manuellement
     cloudinary.config(
         cloud_name=settings.CLOUDINARY_STORAGE['CLOUD_NAME'],
         api_key=settings.CLOUDINARY_STORAGE['API_KEY'],
@@ -120,7 +119,10 @@ def migrate_images(request):
 
     for p in products:
         if p.image:
-            local_path = os.path.join(settings.MEDIA_ROOT, str(p.image))
+            # ✅ FIX - remplace / par \ pour Windows
+            image_name = str(p.image).replace('/', os.sep)
+            local_path = os.path.join(settings.MEDIA_ROOT, image_name)
+            output += f"<p>Chemin: {local_path}</p>"
             if os.path.exists(local_path):
                 result = cloudinary.uploader.upload(local_path, folder="products")
                 p.image = result['public_id'].replace('products/', '')
@@ -130,4 +132,3 @@ def migrate_images(request):
                 output += f"<p>❌ {p.name} → fichier introuvable</p>"
 
     return HttpResponse(output)
- 
