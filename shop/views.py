@@ -88,10 +88,14 @@ def decrease_quantity(request, product_id):
             del cart[pid]
     request.session['cart'] = cart
     return redirect('cart')
+ 
 def debug_images(request):
     from django.http import HttpResponse
+    from django.conf import settings
+    import os
+    output = f"<p>DEFAULT_FILE_STORAGE: {settings.DEFAULT_FILE_STORAGE}</p>"
+    output += f"<p>CLOUDINARY CLOUD_NAME: {settings.CLOUDINARY_STORAGE.get('CLOUD_NAME', 'NON DEFINI')}</p>"
     products = Product.objects.all()
-    output = ""
     for p in products:
-        output += f"<p><b>{p.name}</b> → image: {p.image} → url: {p.image.url if p.image else 'PAS IMAGE'}</p>"
+        output += f"<p><b>{p.name}</b> → url: {p.image.url if p.image else 'PAS IMAGE'}</p>"
     return HttpResponse(output)
