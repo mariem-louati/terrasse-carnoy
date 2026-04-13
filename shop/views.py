@@ -104,12 +104,20 @@ def debug_images(request):
 def migrate_images(request):
     from django.http import HttpResponse
     import cloudinary.uploader
+    import cloudinary
     import os
     from django.conf import settings
-    
+
+    # ✅ Configure Cloudinary manuellement
+    cloudinary.config(
+        cloud_name=settings.CLOUDINARY_STORAGE['CLOUD_NAME'],
+        api_key=settings.CLOUDINARY_STORAGE['API_KEY'],
+        api_secret=settings.CLOUDINARY_STORAGE['API_SECRET']
+    )
+
     output = ""
     products = Product.objects.all()
-    
+
     for p in products:
         if p.image:
             local_path = os.path.join(settings.MEDIA_ROOT, str(p.image))
@@ -120,7 +128,6 @@ def migrate_images(request):
                 output += f"<p>✅ {p.name} → {result['secure_url']}</p>"
             else:
                 output += f"<p>❌ {p.name} → fichier introuvable</p>"
-    
+
     return HttpResponse(output)
- 
  
