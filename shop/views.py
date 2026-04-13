@@ -4,10 +4,10 @@ from .models import Product, Category
 
 def product_list(request):
     categories = Category.objects.all()
-    products = Product.objects.all()  # ✅ CORRECTION - tous les produits
+    products = Product.objects.all()
     return render(request, 'shop/product_list.html', {
         'categories': categories,
-        'products': products,  # ✅ CORRECTION - passé au template
+        'products': products,
     })
 
 
@@ -88,20 +88,14 @@ def decrease_quantity(request, product_id):
             del cart[pid]
     request.session['cart'] = cart
     return redirect('cart')
- 
+
+
 def debug_images(request):
     from django.http import HttpResponse
-    from django.conf import settings
-    import cloudinary_storage
-    import os
-    output =""
-    output = f"<p>DEFAULT_FILE_STORAGE: {settings.DEFAULT_FILE_STORAGE}</p>"
-    output += f"<p>CLOUDINARY CLOUD_NAME: {settings.CLOUDINARY_STORAGE.get('CLOUD_NAME', 'NON DEFINI')}</p>"
-    output += f"<p>cloudinary_storage version: {cloudinary_storage.__version__}</p>"
-    products = Product.objects.all()
-    for p in products:
-        output += f"<p><b>{p.name}</b> → image: {p.image} → get_image_url: {p.get_image_url()}</p>"
-    return HttpResponse(output)
+    p = Product.objects.first()
+    return HttpResponse(f"image: {p.image} | url: {p.get_image_url()}")
+
+
 def migrate_images(request):
     from django.http import HttpResponse
     import cloudinary.uploader
@@ -120,10 +114,8 @@ def migrate_images(request):
 
     for p in products:
         if p.image:
-            # ✅ FIX - remplace / par \ pour Windows
             image_name = str(p.image).replace('/', os.sep)
             local_path = os.path.join(settings.MEDIA_ROOT, image_name)
-            output += f"<p>Chemin: {local_path}</p>"
             if os.path.exists(local_path):
                 result = cloudinary.uploader.upload(local_path, folder="products")
                 p.image = result['public_id'].replace('products/', '')
