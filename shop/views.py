@@ -101,5 +101,26 @@ def debug_images(request):
     for p in products:
         output += f"<p><b>{p.name}</b> → url: {p.image.url if p.image else 'PAS IMAGE'}</p>"
     return HttpResponse(output)
+def migrate_images(request):
+    from django.http import HttpResponse
+    import cloudinary.uploader
+    import os
+    from django.conf import settings
+    
+    output = ""
+    products = Product.objects.all()
+    
+    for p in products:
+        if p.image:
+            local_path = os.path.join(settings.MEDIA_ROOT, str(p.image))
+            if os.path.exists(local_path):
+                result = cloudinary.uploader.upload(local_path, folder="products")
+                p.image = result['public_id'].replace('products/', '')
+                p.save()
+                output += f"<p>✅ {p.name} → {result['secure_url']}</p>"
+            else:
+                output += f"<p>❌ {p.name} → fichier introuvable</p>"
+    
+    return HttpResponse(output)
  
  
