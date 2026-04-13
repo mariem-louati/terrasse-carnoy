@@ -88,9 +88,3 @@ def decrease_quantity(request, product_id):
             del cart[pid]
     request.session['cart'] = cart
     return redirect('cart')
-
-
-def debug_images(request):
-    from django.http import HttpResponse
-    p = Product.objects.first()
-    return HttpResponse(f"image: {p.image} | url: {p.get_image_url()}")
