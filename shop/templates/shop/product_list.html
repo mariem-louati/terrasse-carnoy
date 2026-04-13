@@ -87,9 +87,11 @@
         <div class="product-card">
             <div class="product-image-wrap">
                 {% if product.image %}
-                     
-                    <img src="{{ product.image.url }}" alt="{{ product.name }}" class="product-image" onerror="this.style.display='none'">
-                {% else %}
+                    <img src="{{ product.image.url }}" alt="{{ product.name }}" class="product-image">
+                    <!-- debug: {{ product.image }} -->
+                {%  else %}
+                    <!-- pas image: {{ product.name }} -->
+                {% endif %}
                     <div class="product-image-placeholder">
                         {% if "café" in product.name|lower %}☕
                         {% elif "thé" in product.name|lower %}🍵
