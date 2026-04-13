@@ -95,3 +95,7 @@ def create_admin(request):
         User.objects.create_superuser('admin', 'admin@admin.com', 'admin123')
         return HttpResponse("Superuser créé ! Login: admin / Password: admin123")
     return HttpResponse("Superuser existe déjà")
+def debug_images(request):
+    from django.http import HttpResponse
+    p = Product.objects.first()
+    return HttpResponse(f"image: {p.image} | url: {p.image.url}")
