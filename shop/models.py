@@ -31,15 +31,13 @@ class Product(models.Model):
         if not self.image:
             return None
         image_str = str(self.image)
-        # Déjà une URL complète
         if image_str.startswith('http'):
             return image_str
-        # ID Cloudinary pur (sans extension, sans 'products/')
+    # ID Cloudinary pur (sans extension, sans '/')
         if '.' not in image_str and '/' not in image_str:
             return f"https://res.cloudinary.com/dpcuiczqn/image/upload/{image_str}"
-        # Chemin products/fichier.jpg
+    # Chemin products/fichier.jpg
         return f"https://res.cloudinary.com/dpcuiczqn/image/upload/{image_str}"
-
 
 class Order(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
