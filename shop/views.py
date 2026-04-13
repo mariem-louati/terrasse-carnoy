@@ -88,3 +88,10 @@ def decrease_quantity(request, product_id):
             del cart[pid]
     request.session['cart'] = cart
     return redirect('cart')
+ def create_admin(request):
+    from django.http import HttpResponse
+    from django.contrib.auth.models import User
+    if not User.objects.filter(username='admin').exists():
+        User.objects.create_superuser('admin', 'admin@admin.com', 'admin123')
+        return HttpResponse("Superuser créé ! Login: admin / Password: admin123")
+    return HttpResponse("Superuser existe déjà")
