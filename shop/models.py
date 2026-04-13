@@ -51,3 +51,12 @@ class OrderItem(models.Model):
 
     def __str__(self):
         return f"{self.product.name} x {self.quantity}"
+def get_image_url(self):
+    if self.image:
+        image_str = str(self.image)
+        # Si c'est déjà un ID Cloudinary (pas de chemin products/)
+        if not image_str.startswith('products/') and not image_str.endswith('.jpg') and not image_str.endswith('.png'):
+            return f"https://res.cloudinary.com/dpcuiczqn/image/upload/{image_str}"
+        # Si c'est un chemin local
+        return f"https://res.cloudinary.com/dpcuiczqn/image/upload/products/{image_str.replace('products/', '')}"
+    return None
