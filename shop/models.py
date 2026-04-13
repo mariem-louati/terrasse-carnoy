@@ -1,6 +1,4 @@
 from django.db import models
-import cloudinary.uploader
-import cloudinary
 
 
 class Category(models.Model):
@@ -17,16 +15,10 @@ class Product(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     image = models.ImageField(upload_to='products/', blank=True, null=True)
 
-    # ✅ NOUVEAUX CHAMPS
     is_new = models.BooleanField(default=False, verbose_name="Nouveauté")
     is_promo = models.BooleanField(default=False, verbose_name="En promotion")
     promo_price = models.FloatField(null=True, blank=True, verbose_name="Prix promo")
 
-    def get_image_url(self):
-        if self.image:
-            # Force l'URL Cloudinary
-            return f"https://res.cloudinary.com/dpcuiczqn/image/upload/{self.image}"
-        return None
     def __str__(self):
         return self.name
 
@@ -34,6 +26,19 @@ class Product(models.Model):
         if self.is_promo and self.promo_price:
             return self.promo_price
         return self.price
+
+    def get_image_url(self):
+        if not self.image:
+            return None
+        image_str = str(self.image)
+        # Déjà une URL complète
+        if image_str.startswith('http'):
+            return image_str
+        # ID Cloudinary pur (sans extension, sans 'products/')
+        if '.' not in image_str and '/' not in image_str:
+            return f"https://res.cloudinary.com/dpcuiczqn/image/upload/{image_str}"
+        # Chemin products/fichier.jpg
+        return f"https://res.cloudinary.com/dpcuiczqn/image/upload/{image_str}"
 
 
 class Order(models.Model):
@@ -51,12 +56,3 @@ class OrderItem(models.Model):
 
     def __str__(self):
         return f"{self.product.name} x {self.quantity}"
-def get_image_url(self):
-    if self.image:
-        image_str = str(self.image)
-        # Si c'est déjà un ID Cloudinary (pas de chemin products/)
-        if not image_str.startswith('products/') and not image_str.endswith('.jpg') and not image_str.endswith('.png'):
-            return f"https://res.cloudinary.com/dpcuiczqn/image/upload/{image_str}"
-        # Si c'est un chemin local
-        return f"https://res.cloudinary.com/dpcuiczqn/image/upload/products/{image_str.replace('products/', '')}"
-    return None
