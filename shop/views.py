@@ -4,23 +4,19 @@ from .models import Product, Category
 
 def product_list(request):
     categories = Category.objects.all()
-    new_products = Product.objects.filter(is_new=True)
-    promo_products = Product.objects.filter(is_promo=True)
+    products = Product.objects.all()  # ✅ CORRECTION - tous les produits
     return render(request, 'shop/product_list.html', {
         'categories': categories,
-        'new_products': new_products,
-        'promo_products': promo_products,
+        'products': products,  # ✅ CORRECTION - passé au template
     })
 
 
 def category_list(request):
     categories = Category.objects.all()
-    new_products = Product.objects.filter(is_new=True)
-    promo_products = Product.objects.filter(is_promo=True)
+    products = Product.objects.all()
     return render(request, 'shop/category_list.html', {
         'categories': categories,
-        'new_products': new_products,
-        'promo_products': promo_products,
+        'products': products,
     })
 
 
