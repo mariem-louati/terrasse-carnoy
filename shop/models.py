@@ -27,16 +27,6 @@ class Product(models.Model):
             return self.promo_price
         return self.price
 
-    def get_image_url(self):
-        if not self.image:
-            return None
-        image_str = str(self.image)
-        if image_str.startswith('http'):
-            return image_str
-        if '.' not in image_str.split('/')[-1]:
-            image_str = image_str + '.jpg'
-        return f"https://res.cloudinary.com/dpcuiczqn/image/upload/{image_str}"
-
 
 class Order(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
