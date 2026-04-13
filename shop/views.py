@@ -94,12 +94,13 @@ def debug_images(request):
     from django.conf import settings
     import cloudinary_storage
     import os
+    output =""
     output = f"<p>DEFAULT_FILE_STORAGE: {settings.DEFAULT_FILE_STORAGE}</p>"
     output += f"<p>CLOUDINARY CLOUD_NAME: {settings.CLOUDINARY_STORAGE.get('CLOUD_NAME', 'NON DEFINI')}</p>"
     output += f"<p>cloudinary_storage version: {cloudinary_storage.__version__}</p>"
     products = Product.objects.all()
     for p in products:
-        output += f"<p><b>{p.name}</b> → url: {p.image.url if p.image else 'PAS IMAGE'}</p>"
+        output += f"<p><b>{p.name}</b> → image: {p.image} → get_image_url: {p.get_image_url()}</p>"
     return HttpResponse(output)
 def migrate_images(request):
     from django.http import HttpResponse
