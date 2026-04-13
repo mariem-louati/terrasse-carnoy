@@ -4,10 +4,10 @@ from .models import Product, Category
 
 def product_list(request):
     categories = Category.objects.all()
-    products = Product.objects.all()  # ✅ CORRECTION - tous les produits
+    products = Product.objects.all()
     return render(request, 'shop/product_list.html', {
         'categories': categories,
-        'products': products,  # ✅ CORRECTION - passé au template
+        'products': products,
     })
 
 
@@ -88,39 +88,9 @@ def decrease_quantity(request, product_id):
             del cart[pid]
     request.session['cart'] = cart
     return redirect('cart')
- 
+
+
 def debug_images(request):
     from django.http import HttpResponse
-    from django.conf import settings
-    import cloudinary_storage
-    import os
-    output = f"<p>DEFAULT_FILE_STORAGE: {settings.DEFAULT_FILE_STORAGE}</p>"
-    output += f"<p>CLOUDINARY CLOUD_NAME: {settings.CLOUDINARY_STORAGE.get('CLOUD_NAME', 'NON DEFINI')}</p>"
-    output += f"<p>cloudinary_storage version: {cloudinary_storage.__version__}</p>"
-    products = Product.objects.all()
-    for p in products:
-        output += f"<p><b>{p.name}</b> → url: {p.image.url if p.image else 'PAS IMAGE'}</p>"
-    return HttpResponse(output)
-def migrate_images(request):
-    from django.http import HttpResponse
-    import cloudinary.uploader
-    import os
-    from django.conf import settings
-    
-    output = ""
-    products = Product.objects.all()
-    
-    for p in products:
-        if p.image:
-            local_path = os.path.join(settings.MEDIA_ROOT, str(p.image))
-            if os.path.exists(local_path):
-                result = cloudinary.uploader.upload(local_path, folder="products")
-                p.image = result['public_id'].replace('products/', '')
-                p.save()
-                output += f"<p>✅ {p.name} → {result['secure_url']}</p>"
-            else:
-                output += f"<p>❌ {p.name} → fichier introuvable</p>"
-    
-    return HttpResponse(output)
- 
- 
+    p = Product.objects.first()
+    return HttpResponse(f"image: {p.image} | url: {p.get_image_url()}")
