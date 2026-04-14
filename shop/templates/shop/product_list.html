@@ -86,7 +86,7 @@
         {% for product in products %}
         <div class="product-card">
             <div class="product-image-wrap">
-                {{% if product.image %}
+                {% if product.image %}
                     <img src="https://res.cloudinary.com/dpcuiczqn/image/upload/{{ product.image }}" alt="{{ product.name }}" class="product-image">
                 {% else %}
                     <!-- pas image: {{ product.name }} -->
