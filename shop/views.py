@@ -88,6 +88,7 @@ def decrease_quantity(request, product_id):
             del cart[pid]
     request.session['cart'] = cart
     return redirect('cart')
+<<<<<<< HEAD
 
 
 def debug_images(request):
@@ -125,3 +126,16 @@ def migrate_images(request):
                 output += f"<p>❌ {p.name} → fichier introuvable</p>"
 
     return HttpResponse(output)
+=======
+def create_admin(request):
+    from django.http import HttpResponse
+    from django.contrib.auth.models import User
+    if not User.objects.filter(username='admin').exists():
+        User.objects.create_superuser('admin', 'admin@admin.com', 'admin123')
+        return HttpResponse("Superuser créé ! Login: admin / Password: admin123")
+    return HttpResponse("Superuser existe déjà")
+def debug_images(request):
+    from django.http import HttpResponse
+    p = Product.objects.first()
+    return HttpResponse(f"image: {p.image} | url: {p.image.url}")
+>>>>>>> 8bf4587b9ade7a1dc6ea0c903f379b3c533a4363
