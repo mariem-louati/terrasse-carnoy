@@ -87,7 +87,7 @@
         <div class="product-card">
             <div class="product-image-wrap">
                 {% if product.image %}
-                    <img src="{{ product.get_image_url }}" alt="{{ product.name }}" class="product-image">
+                    <img src="https://res.cloudinary.com/dpcuiczqn/image/upload/{{ product.image }}" alt="{{ product.name }}" class="product-image">
                 {% else %}
                     <div class="product-image-placeholder">
                         {% if "café" in product.name|lower %}☕
