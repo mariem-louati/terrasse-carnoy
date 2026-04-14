@@ -78,7 +78,6 @@ STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATICFILES_DIRS = [BASE_DIR / 'shop' / 'static']
 
-<<<<<<< HEAD
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 # ✅ NOUVEAU - Django 6.0
@@ -90,12 +89,6 @@ STORAGES = {
         "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
     },
 }
-=======
-# MEDIA FILES - Cloudinary
-MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'media'
-
->>>>>>> 8bf4587b9ade7a1dc6ea0c903f379b3c533a4363
 CLOUDINARY_STORAGE = {
     'CLOUD_NAME': config('CLOUDINARY_CLOUD_NAME'),
     'API_KEY': config('CLOUDINARY_API_KEY'),
