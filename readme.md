@@ -28,7 +28,7 @@ La Terrasse Carnoy est une application web complète permettant aux clients de c
 
 | Composant | Technologie |
 |-----------|-------------|
-| Backend | Django 6.0 (Python) |
+| Backend | Django 5.2 (Python) |
 | Base de données | PostgreSQL |
 | Stockage images | Cloudinary |
 | Fichiers statiques | WhiteNoise |
@@ -128,7 +128,7 @@ Variables d'environnement à configurer sur Render :
 
 ## 🔧 Défis techniques résolus
 
-- **Images Cloudinary** — Résolution du problème d'affichage en production avec la nouvelle API `STORAGES` de Django 6.0
+- **Images Cloudinary** — Résolution du problème d'affichage en production avec la nouvelle API `STORAGES` de Django 5.2
 - **Persistance des données** — Migration de SQLite vers PostgreSQL pour éviter la perte de données lors des redéploiements
 - **Variables d'environnement** — Configuration via `python-decouple` pour séparer les environnements dev/prod
 
